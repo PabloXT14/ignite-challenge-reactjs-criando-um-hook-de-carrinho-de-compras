@@ -22,19 +22,30 @@ interface CartItemsAmount {
 }
 
 const Home = (): JSX.Element => {
-  // const [products, setProducts] = useState<ProductFormatted[]>([]);
-  // const { addProduct, cart } = useCart();
+  const [products, setProducts] = useState<ProductFormatted[]>([]);
+  const { addProduct, cart } = useCart();
 
-  // const cartItemsAmount = cart.reduce((sumAmount, product) => {
-  //   // TODO
-  // }, {} as CartItemsAmount)
+  /* Variável para manter a quantidade de cada produto */
+  const cartItemsAmount = cart.reduce((sumAmount, product) => {
+    sumAmount = {
+      ...sumAmount,
+      [product.id]: product.amount
+    }
+
+    return sumAmount;
+  }, {} as CartItemsAmount)
+
+
 
   useEffect(() => {
+    // Buscar produtos na API Fake
     async function loadProducts() {
-      // TODO
+
+      await api.get('/products').then(response => setProducts(response.data));
     }
 
     loadProducts();
+    //console.log(products);
   }, []);
 
   function handleAddProduct(id: number) {
