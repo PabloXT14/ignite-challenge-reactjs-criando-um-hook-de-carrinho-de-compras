@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
 import { Product, Stock } from '../types';
@@ -32,6 +32,21 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
     return [];
   });
+
+  /* === Var de Referencia que checa state cart para atualizar valor no localStorage === */
+  const prevCartRef = useRef<Product[]>();
+  useEffect(() => {
+    prevCartRef.current = cart;// valor atual do prevCartRef sempre vai mudar quando o state cart mudar
+  })
+
+  // const cartPreviousValue = prevCartRef.current ?? cart;
+  const cartPreviousValue = prevCartRef.current ? prevCartRef.current : cart;
+
+  useEffect(() => {
+    if (cartPreviousValue !== cart) {
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
+    }
+  }, [cart, cartPreviousValue])
 
   /* === Função com lógica de adição de produto no Cart(Carrinho) === */
   const addProduct = async (productId: number) => {
@@ -68,31 +83,68 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         updatedCart.push(newProduct);
       }
 
-      // Atualizando state cart e salvando no localStorage
+      // Atualizando state cart (e salvando no localStorage com o var de referencia)
       setCart(updatedCart);
-      localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart));
 
     } catch {
       toast.error('Erro na adição do produto');
     }
   };
 
+  /* === Função com lógica de remoção de produto/item no Cart === */
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      const updatedCart = [...cart];
+
+      // Checando se produto existe no cart (findIndex: método para retornar o index de um certo item do array, se não achar retorna -1)
+      const productIndex = updatedCart.findIndex(product => product.id === productId);
+
+      // Teste para excluir
+      if (productIndex >= 0) {
+        // Atualizando state cart (e salvando no localStorage com o var de referencia)
+        updatedCart.splice(productIndex, 1);// splice: método para exluir items
+        setCart(updatedCart);
+      } else {
+        throw Error();// forçando erro para cair no catch
+      }
+
     } catch {
-      // TODO
+      toast.error('Erro na remoção do produto');// popup de erro no react
     }
   };
 
+  /* === Função com lógica de update da quantidade de produto no Cart === */
   const updateProductAmount = async ({
     productId,
     amount,
   }: UpdateProductAmount) => {
     try {
-      // TODO
+      // amount: nova quantidade desejada do produto
+      if (amount <= 0) return;
+
+      // Checando se há quantidade do produto suficiente no estoque
+      const stock = await api.get(`/stock/${productId}`);
+      const stockAmount = stock.data.amount;
+
+      if (amount > stockAmount) {
+        toast.error('Quantidade solicitada fora de estoque');
+        return;
+      }
+
+      // Lógica de adição de nova quantidade de produtos no cart
+      const updatedCart = [...cart];
+      const productExists = updatedCart.find(product => product.id === productId);
+
+      if (productExists) {
+        // Atualizando state cart (e salvando no localStorage com o var de referencia)
+        productExists.amount = amount;
+        setCart(updatedCart);
+      } else {
+        throw Error();
+      }
+
     } catch {
-      // TODO
+      toast.error('Erro na alteração de quantidade do produto');
     }
   };
 

@@ -25,52 +25,62 @@ const Home = (): JSX.Element => {
   const [products, setProducts] = useState<ProductFormatted[]>([]);
   const { addProduct, cart } = useCart();
 
-  /* Variável para manter a quantidade de cada produto */
+  /* Variável para manter a quantidade de cada produto por id */
   const cartItemsAmount = cart.reduce((sumAmount, product) => {
-    sumAmount = {
-      ...sumAmount,
-      [product.id]: product.amount
-    }
+    const newSumAmount = { ...sumAmount }// return []
+    newSumAmount[product.id] = product.amount;// criando campo com id do produto e salvando quantidade dele no campo id
 
-    return sumAmount;
+    return newSumAmount;
   }, {} as CartItemsAmount)
 
 
 
   useEffect(() => {
-    // Buscar produtos na API Fake
+    // Buscar produtos na API Fake (e formatando valor de price)
     async function loadProducts() {
+      const response = await api.get<Product[]>('/products');
 
-      await api.get('/products').then(response => setProducts(response.data));
+      // formatando valor de price (formatPrice = Intl.NumberFormat)
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price)
+      }));
+
+      setProducts(data);// adicionando no state o cart com preco formatado
     }
 
     loadProducts();
     //console.log(products);
   }, []);
 
+  // Função que vai lidar com a adição de novo produto no cart
   function handleAddProduct(id: number) {
-    // TODO
+    addProduct(id);
   }
 
   return (
     <ProductList>
-      <li>
-        <img src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg" alt="Tênis de Caminhada Leve Confortável" />
-        <strong>Tênis de Caminhada Leve Confortável</strong>
-        <span>R$ 179,90</span>
-        <button
-          type="button"
-          data-testid="add-product-button"
-        // onClick={() => handleAddProduct(product.id)}
-        >
-          <div data-testid="cart-product-quantity">
-            <MdAddShoppingCart size={16} color="#FFF" />
-            {/* {cartItemsAmount[product.id] || 0} */} 2
-          </div>
+      {/* Fazendo carregamento dos produtos de forma dinamica */}
+      {products.map(product => (
+        <li key={product.id}>
+          <img src={product.image} alt={product.title} />
+          <strong>{product.title}</strong>
+          <span>{product.priceFormatted}</span>
+          <button
+            type="button"
+            data-testid="add-product-button"
+            onClick={() => handleAddProduct(product.id)}
+          >
+            <div data-testid="cart-product-quantity">
+              <MdAddShoppingCart size={16} color="#FFF" />
+              {cartItemsAmount[product.id] || 0}
+            </div>
 
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
+            <span>ADICIONAR AO CARRINHO</span>
+          </button>
+        </li>
+      )
+      )}
     </ProductList>
   );
 };
