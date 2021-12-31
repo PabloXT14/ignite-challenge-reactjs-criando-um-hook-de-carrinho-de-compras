@@ -1,9 +1,10 @@
-import React from 'react';
 import {
   MdDelete,
   MdAddCircleOutline,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
+import { toast } from 'react-toastify';
+
 
 import { useCart } from '../../hooks/useCart';
 import { formatPrice } from '../../util/format';
@@ -118,7 +119,12 @@ const Cart = (): JSX.Element => {
       </ProductTable>
 
       <footer>
-        <button type="button">Finalizar pedido</button>
+        <button
+          type="button"
+          onClick={() => { toast.success("Compra realizada com sucesso!") }}
+        >
+          Finalizar pedido
+        </button>
 
         <Total>
           <span>TOTAL</span>

@@ -58,7 +58,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
       // Buscando dados do stock de produtos
       const stock = await api.get(`/stock/${productId}`);
-
+      //console.log(stock.data)
       const stockAmount = stock.data.amount;// pegando qtn em stock do produto
       const currentAmount = productExists ? productExists.amount : 0;// pegando qtn do produto que o cliente pegou
       const amount = currentAmount + 1;// nova quantidade de do produto que cliente terá

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
+import Tilt from 'react-parallax-tilt';
 
 import { ProductList } from './styles';
 import { api } from '../../services/api';
@@ -50,7 +51,7 @@ const Home = (): JSX.Element => {
     }
 
     loadProducts();
-    //console.log(products);
+
   }, []);
 
   // Função que vai lidar com a adição de novo produto no cart
@@ -58,27 +59,36 @@ const Home = (): JSX.Element => {
     addProduct(id);
   }
 
+
   return (
     <ProductList>
       {/* Fazendo carregamento dos produtos de forma dinamica */}
       {products.map(product => (
-        <li key={product.id}>
-          <img src={product.image} alt={product.title} />
-          <strong>{product.title}</strong>
-          <span>{product.priceFormatted}</span>
-          <button
-            type="button"
-            data-testid="add-product-button"
-            onClick={() => handleAddProduct(product.id)}
-          >
-            <div data-testid="cart-product-quantity">
-              <MdAddShoppingCart size={16} color="#FFF" />
-              {cartItemsAmount[product.id] || 0}
-            </div>
+        <Tilt
+          key={product.id}
+          className="parallax-effect"
+          perspective={500}
+          gyroscope={true}
+        >
+          <li>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
+            <button
+              type="button"
+              data-testid="add-product-button"
+              onClick={() => handleAddProduct(product.id)}
+            >
+              <div data-testid="cart-product-quantity">
+                <MdAddShoppingCart size={16} color="#FFF" />
+                {cartItemsAmount[product.id] || 0}
+              </div>
 
-            <span>ADICIONAR AO CARRINHO</span>
-          </button>
-        </li>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
+        </Tilt>
+
       )
       )}
     </ProductList>

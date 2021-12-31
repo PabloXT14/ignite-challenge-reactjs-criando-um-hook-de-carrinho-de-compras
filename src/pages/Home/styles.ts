@@ -7,6 +7,10 @@ export const ProductList = styled.ul`
   grid-gap: 20px;
   list-style: none;
 
+  .parallax-effect {
+    transform-style: preserve-3d;// it's to paralax effect
+  }
+
   li {
     display: flex;
     flex-direction: column;
