@@ -67,14 +67,14 @@ const Cart = (): JSX.Element => {
           {cartFormatted.map(product => {
             return (
               <tr key={product.id} data-testid="product">
-                <td>
+                <td data-title="IMAGEM">
                   <img src={product.image} alt={product.title} />
                 </td>
-                <td>
+                <td data-title="PRODUTO">
                   <strong>{product.title}</strong>
                   <span>{product.priceFormatted}</span>
                 </td>
-                <td>
+                <td data-title="QTD">
                   <div>
                     <button
                       type="button"
@@ -99,10 +99,10 @@ const Cart = (): JSX.Element => {
                     </button>
                   </div>
                 </td>
-                <td>
+                <td data-title="SUBTOTAL">
                   <strong>{product.subTotal}</strong>
                 </td>
-                <td>
+                <td data-title="DELETAR">
                   <button
                     type="button"
                     data-testid="remove-product"

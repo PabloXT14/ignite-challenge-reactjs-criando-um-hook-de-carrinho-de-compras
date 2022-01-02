@@ -3,7 +3,8 @@ import { darken } from 'polished';
 
 export const ProductList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, 19rem);
+  place-content: center;
   grid-gap: 20px;
   list-style: none;
 
@@ -15,23 +16,23 @@ export const ProductList = styled.ul`
     display: flex;
     flex-direction: column;
     background: #fff;
-    border-radius: 4px;
+    border-radius: .25rem;
     padding: 20px;
 
     img {
       align-self: center;
-      max-width: 250px;
+      width: 100%;
     }
 
     > strong {
-      font-size: 16px;
-      line-height: 20px;
+      font-size: 1rem;
+      line-height: 1.25rem;
       color: #333;
       margin-top: 5px;
     }
 
     > span {
-      font-size: 21px;
+      font-size: 1.3rem;
       font-weight: bold;
       margin: 5px 0 20px;
     }
@@ -40,7 +41,7 @@ export const ProductList = styled.ul`
       background: #7159c1;
       color: #fff;
       border: 0;
-      border-radius: 4px;
+      border-radius: .25rem;
       overflow: hidden;
       margin-top: auto;
 
@@ -55,7 +56,7 @@ export const ProductList = styled.ul`
       div {
         display: flex;
         align-items: center;
-        padding: 12px;
+        padding: .75rem;
         background: rgba(0, 0, 0, 0.1);
 
         svg {
@@ -67,6 +68,7 @@ export const ProductList = styled.ul`
         flex: 1;
         text-align: center;
         font-weight: bold;
+        font-size: .87rem;/*14px*/
       }
     }
   }
