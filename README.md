@@ -29,6 +29,8 @@ Contudo, este é um projeto desenvolvido como Desafio do curso Ignite ReactJS da
 <br>
 ✔ [Serverless Functions](https://vercel.com/docs/concepts/functions/serverless-functions#) (da vercel - para simular um servidor)
 <br>
+✔ localStorage (para salvar o state do carrinho)
+<br>
 ✔ IDE: VS Code
 
 ## ⚙ Settings
