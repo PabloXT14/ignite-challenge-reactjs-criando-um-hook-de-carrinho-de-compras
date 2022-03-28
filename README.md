@@ -1,17 +1,17 @@
 # Projeto Carrinho de Compras
-Esta é uma aplicação ReactJS que simula um carrinho de compras básico (no caso uma lojinha de tênis), onde se tem a página principal de seleção dos produtos e uma outra que representa o carrinho de compras do usuário (obs: o botão de finalizar compra é meramente ilustrativo).
+* Esta é uma aplicação ReactJS que simula um carrinho de compras básico (no caso uma lojinha de tênis), onde se tem a página principal de seleção dos produtos e uma outra que representa o carrinho de compras do usuário (obs: o botão de finalizar compra é meramente ilustrativo).
 
-Os objetivos principais foram treinar e aprimorar funcionalidades do ReactJS (`useState`, `useContext`, ...), a utilização de APIs e Serveless Functions(da vercel).
-
-Contudo, este é um projeto desenvolvido como Desafio do curso Ignite ReactJS da [Rocketseat](https://www.rocketseat.com.br/).
+* Os objetivos principais foram treinar e aprimorar funcionalidades do ReactJS (`useState`, `useContext`, ...), a utilização de APIs e Serveless Functions(da vercel).
+* Contudo, este é um projeto desenvolvido como Desafio do curso Ignite ReactJS da [Rocketseat](https://www.rocketseat.com.br/).
+* Caso goste do projeto marque a estrelinha⭐ e compartilhe para me ajudar 👍, e me siga para ver outros projetos meus.
 
 ## 📷 Demonstration
 <img src="./src/assets//Demonstration-Images/Demonstration01-Carrinho-De-Compras-FullPage.gif" alt="Gif de Demostração Projeto em FullPage">
 <br/>
 <img src="./src/assets//Demonstration-Images/Demonstration02-Carrinho-De-Compras-Mobile.gif" alt="Gif de Demostração">
 
-## 🏍 Deploy
-* Para executar o deploy do projeto basta acessar: https://ignite-challenge-reactjs-criando-um-hook-de-carrinho-de-compras.vercel.app/
+## 💻 Deploy
+* Para executar o deploy do projeto basta acessar: [Link](https://ignite-challenge-reactjs-criando-um-hook-de-carrinho-de-compras.vercel.app/)
 * OBS: a página está responsiva, o conteúdo está adaptável para PC/Computador e Mobile (entre outros tamanhos de tela).
 
 ## 🚀 Technologies
@@ -34,13 +34,38 @@ Contudo, este é um projeto desenvolvido como Desafio do curso Ignite ReactJS da
 ✔ IDE: VS Code
 
 ## ⚙ Settings
-* Para executar o projeto você deve baixar os arquivos ou dar um `git clone` do repositório.
-* Após baixar rode o comando `yarn` no terminal dentro do diretório do projeto para baixar todas as dependências.
-* Depois de baixar as dependências siga os seguintes passos para execução do projeto:
-    - `yarn server`: para executar/iniciar o server da nossa **Fake API com JSON Server**.
+* Segue os comandos para baixar e executar o projeto na sua máquina:
+    - `git clone` + `URL do Projeto`: clonar este repositório.
+    - `cd PastaDoProjeto`: acessa a pasta do projeto no terminal.
+    - `yarn`: para baixar as dependências do projeto.
+    - `yarn server`: 
+        - Para executar o server da nossa **Fake API com JSON Server**.
+        - ATENÇÃO:
+        ```
+            Para que as requisições pelo axios para este servidor fake funcionarem você vai precisar: 
+            * Ir no diretório <src/services>
+            * No arquivo <api.ts>
+            * E alterar o campo <baseURL> para o seguinte valor <baseURL: 'http://localhost:3333'>
         ``` 
-        OBS: para que as requisições pelo axios para este servidor fake funcionarem você vai precisar ir no diretório <src/services> no arquivo <api.ts> e alterar o campo <baseURL> para o seguinte valor <baseURL: 'http://localhost:333'>
-        ``` 
-    - `yarn start`: para executar a aplicação React no browser. 
+    - `yarn start`: 
+        - Executa a aplicação React no seu navegador. 
+        - Abra `http://localhost:3000` para ver o projeto rodando no seu navegador.
+        - A página será recarregada se você fizer edições no código, e se tiver algum erro será mostrado no console.
+    - `yarn build`: Compila a aplicação para a produção na pasta build
 
+## 📝 License
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
+## ✍ Author
+<img alt="PabloXT14" title="PabloXT14" src="https://avatars.githubusercontent.com/u/71723595?s=400&u=f7a1ec0c2e1f7cd1acf79f61043dbc75b1079de6&v=4" width="100">
+<p>
+    Made with 💜 by PabloXT14
+</p>
+<p align="left">
+    <a href="https://www.linkedin.com/in/pabloalan/" target="_blank">
+        <img align="center" src="https://img.shields.io/badge/LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Linkedin Pablo Alan" />
+    </a>
+    <a href="mailto:pabloxt14@gmail.com" target="_blank">
+        <img align="center" src="https://img.shields.io/badge/Gmail-FF0000?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Pablo Alan" />
+    </a>
+</p>
